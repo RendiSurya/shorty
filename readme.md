@@ -2,7 +2,7 @@
 # Ralali PHP Microservice Boilerplate
 
 ### Pendahuluan
-Dengan adanya kebutuhan untuk memecah Arsitektur Ralali yang Monolitik menjadi microservice, maka hadirlan boilerplate ini yang dapat digunakan oleh internal tim ralali untuk menunjang pembangunan microservice menggunakan bahasa pemrograman Go, arsitektur pada mikroservice ini diadoptasi berdasarkan teori yang ada pada link-link berikut ini:
+Dengan adanya kebutuhan untuk memecah Arsitektur Ralali yang Monolitik menjadi microservice, maka hadirlan boilerplate ini yang dapat digunakan oleh internal tim ralali untuk menunjang pembangunan microservice menggunakan bahasa pemrograman PHP, arsitektur pada mikroservice ini diadoptasi berdasarkan teori yang ada pada link-link berikut ini:
 
 - https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 - http://www0.cs.ucl.ac.uk/staff/A.Finkelstein/crsenotes/1B1499REQTS.pdf
@@ -11,19 +11,20 @@ Dengan adanya kebutuhan untuk memecah Arsitektur Ralali yang Monolitik menjadi m
 ![architecture diagram](storage/golang%20architecture%20diagram.png)
 ```
 - rl-ms-boilerplate-php
- |- constants
- |- controllers
- |- helpers
- |- middlerware
- |- models
- |- repositories
- |- services
+ |- app
+   |- Constants
+   |- Http
+     |- Controllers
+     |- Middleware
+   |- Helpers
+   |- Models
+   |- Services
+   |- Repositories
  |- storage
-    |- logs
 ```
 #### middleware
 
-Digunakan untuk menyimpan middleware-middleware yang akan digunakan, contoh `cors_middleware` atau `oauth_middleware`.
+Digunakan untuk menyimpan middleware-middleware yang akan digunakan, contoh `CORSMiddleware` atau `OAuthMiddleware`.
 
 #### controllers
 
@@ -43,11 +44,11 @@ Models bertugas untuk menampung model-model representasi database schema yang da
 
 #### helpers
 
-Bertugas untuk menyimpan helpers atau libraries yang sering digunakan contohnya `error_helper` atau `redis_helper`.
+Bertugas untuk menyimpan helpers atau libraries yang sering digunakan contohnya `ErrorHelper`, `CacheHelper` atau `RedisHelper`.
 
 #### constants
 
-Digunakan untuk menyimpan constant-constant seperti `error_constants` atau `configuration_constants`.
+Digunakan untuk menyimpan constant-constant seperti `HTTPStatus` atau `ResponseCode`.
 
 #### storage
 
@@ -67,32 +68,14 @@ Storage bertugas untuk menyimpan file-file seperti log error atau temporary file
 
 
 ### Unit Testing
+
 untuk menjalankan unit testing, developer dapat menjalankan command dibawah ini:
 ```
 ./vendor/bin/phpunit
 ``` 
 
 ### Code Versioning
-versioning level dilakukan pada layer 
-- `controllers` 
-- `repositories` 
-- `services`
-
-setiap file pada layer-layer tersebut diberi prefix version dengan format snake case, seperti pada contoh yang ada `v1_user_controller.go` yang berarti user_controller versi 1, dan pada level struct diberi prefix versi dalam bentuk upper camel case seperti pada contoh diproject ini `V1UserController` yang berarti controller `UserController` versi 1.
 
 ##### Sample Case
-terdapat contoh kasus pada saat update data user parameter dan response yang diterima dan diberikan oleh `v1` dan `v2` berbeda, pertama-tama, developer harus melakukan definisi DTO nya terlebih dahulu pada layer `objects`:
-
-- v1_user_object.go
-- v2_user_object.go
-
-pada kedua file tersebut terdapat object response dan object request, setelah melakaukan devinisi DTO, developer kemudiam melakukan definisi repository pada layer `repository` yang menggunakan DTO pada masing-masing versi.
-
-setelah melakukan definisi pada `repository`, kemudian dilakukan definisi pada layer `service` dan `controller`, perhatikan routing group pada masing masing controller harus sesuai dengan versi yang didefinisikan.    
-
+ 
 ### Database Migration
-untuk menjalankan database migration, developer dapat menjalankan command dibawah ini:
-```
-go run database_migration.go
-``` 
-database migration akan melakukan sinkronisasi skema dan indeks database berdasarkan skema yang dibuat pada directory models dan perintah yang ada di `database_migration.go`
