@@ -1,0 +1,42 @@
+version: '3.3'
+services:
+  rll_php_boilerplate_php_service:
+    build:
+      context: ./config
+      dockerfile: php-service
+    container_name: rll_php_boilerplate_php_service
+    ports:
+    - '8000:8000'
+    volumes:
+    - './src:/my_app:rw'
+    networks:
+      rll_php_boilerplate_network:
+        ipv4_address: 172.16.234.10
+    working_dir: "/my_app"
+    command: ["sh", "-c", "composer update --prefer-dist && echo \"Serving......\" && php -S 0.0.0.0:8000 -t public/"]
+  rll_php_boilerplate_mysql_service:
+    build:
+      context: ./config
+      dockerfile: mysql-service
+    container_name: rll_php_boilerplate_mysql_service
+    environment:
+      MYSQL_DATABASE: "rll_php_boilerplate_database"
+      MYSQL_USER: "rll_php_boilerplate_username"
+      MYSQL_PASSWORD: "rll_php_boilerplate_password"
+      MYSQL_ROOT_PASSWORD: "rll_php_boilerplate_password"
+    ports:
+    - '3308:3306'
+    volumes:
+    - './storage/mysql:/var/lib/mysql'
+    networks:
+      rll_php_boilerplate_network:
+        ipv4_address: 172.16.234.11
+networks:
+  rll_php_boilerplate_network:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: 'false'
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.234.0/24

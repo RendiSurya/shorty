@@ -8,7 +8,7 @@ Dengan adanya kebutuhan untuk memecah Arsitektur Ralali yang Monolitik menjadi m
 - http://www0.cs.ucl.ac.uk/staff/A.Finkelstein/crsenotes/1B1499REQTS.pdf
 
 ### Architecture Structure
-![architecture diagram](storage/golang%20architecture%20diagram.png)
+![architecture diagram](golang%20architecture%20diagram.png)
 ```
 - rl-ms-boilerplate-php
  |- app
