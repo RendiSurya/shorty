@@ -1,6 +1,9 @@
 
 # Ralali PHP Microservice Boilerplate
 
+### Announcement
+Untuk project baru, disarankan menggunakan golang https://github.com/ralali/rl-ms-boilerplate-go
+
 ### Pendahuluan
 Dengan adanya kebutuhan untuk memecah Arsitektur Ralali yang Monolitik menjadi microservice, maka hadirlan boilerplate ini yang dapat digunakan oleh internal tim ralali untuk menunjang pembangunan microservice menggunakan bahasa pemrograman PHP, arsitektur pada mikroservice ini diadoptasi berdasarkan teori yang ada pada link-link berikut ini:
 
